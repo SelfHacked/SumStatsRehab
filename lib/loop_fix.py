@@ -2,7 +2,7 @@
 import io
 import sys
 import re
-from typing import Dict, Literal, Union
+from typing import Dict, Union, Optional
 import os
 import time
 from math import isnan
@@ -34,7 +34,7 @@ class kukdefaultdict(dict):
         return key
 
 
-ResolverName = Literal["ChrBP","rsID","OA","EA","EAF","beta","SE","pval"]
+ResolverName = str
 resolvers_names =     ["ChrBP","rsID","OA","EA","EAF","beta","SE","pval"]
 
 
@@ -46,7 +46,7 @@ def loop_fix(
     SNPs_rsID_FILE: str,
     CHAIN_FILE: Union[None, str],
     FREQ_DATABASE_SLUG: Union[None, str],
-    GWAS_SORTING: Literal[None, 'rsID', 'ChrBP'] = None,
+    GWAS_SORTING: Optional[str] = None,
     ACTIVATED_RESOLVERS: Dict[ResolverName, bool] = {
         "ChrBP": True,
         "rsID":  True,
@@ -829,7 +829,7 @@ if __name__ == "__main__":
     SNPs_rsID_FILE = sys.argv[5]
     CHAIN_FILE = sys.argv[6]
     FREQ_DATABASE_SLUG = sys.argv[7]
-    GWAS_SORTING: Literal[None, 'rsID', 'ChrBP'] = sys.argv[8] # type: ignore
+    GWAS_SORTING: Optional[str] = sys.argv[8] # type: ignore
 
     loop_fix(GWAS_FILE, REPORT_DIR, OUTPUT_GWAS_FILE, SNPs_FILE, SNPs_rsID_FILE, CHAIN_FILE, FREQ_DATABASE_SLUG, GWAS_SORTING)
 

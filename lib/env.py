@@ -1,6 +1,5 @@
 # standard library
 import os
-from typing import Literal
 
 
 
@@ -11,7 +10,7 @@ class WrongRuntimeEnvironmentVariable(Exception):
 GWASSS_BUILD_NUMBER_ENV = 'build_num'
 
 
-def get_build() -> Literal['hg38', 'hg19', 'hg18']:
+def get_build() -> str:
     build = os.getenv(GWASSS_BUILD_NUMBER_ENV)
     if build == None:
         return 'hg38'
@@ -25,7 +24,7 @@ def get_build() -> Literal['hg38', 'hg19', 'hg18']:
         raise WrongRuntimeEnvironmentVariable(f'got unknown GWAS SS build: \"{build}\"')
 
 
-def set_build(build) -> Literal['hg38', 'hg19', 'hg18']:
+def set_build(build) -> str:
     if build == None:
         return 'hg38'
     elif str(build).lower() in ('hg38', 'grch38', '38'):

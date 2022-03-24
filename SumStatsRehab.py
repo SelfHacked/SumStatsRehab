@@ -1,10 +1,8 @@
 # standard library
 import sys
 import os
-from subprocess import call
-import inspect
 import time
-from typing import Dict, List, Literal, Union
+from typing import Dict, List, Union, Optional
 import json
 import argparse
 import pathlib
@@ -207,7 +205,7 @@ def fix(INPUT_GWAS_FILE: str,
     required_sorting: bool = False
     required_liftover: bool = False
     ChrBP_lost_because_of_liftover: int = 0
-    sorted_by: Literal[None, 'rsID', 'ChrBP'] = None
+    sorted_by: Optional[str] = None
     INPUT_GWAS_FILE_standard_sorted = remove_last_ext(INPUT_GWAS_FILE) + "_standard_sorted.tsv"
     INPUT_GWAS_FILE_standard_lifted = remove_last_ext(INPUT_GWAS_FILE) + "_standard_lifted.tsv"
     INPUT_GWAS_FILE_prepared: str = INPUT_GWAS_FILE_standard

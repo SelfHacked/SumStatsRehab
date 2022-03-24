@@ -1,10 +1,9 @@
 # standard library
 import sys
 import re
-from typing import Any, Dict, List, Literal, Tuple, Union
+from typing import Dict, List, Tuple, Union
 import os
 import json
-import subprocess
 import time
 import gzip
 import io
@@ -12,7 +11,6 @@ import io
 # third-party libraries
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patheffects as path_effects
 import magic
 
 # local
@@ -40,7 +38,7 @@ def validate_GWASSS_entries(
     FORMAT_OR_CONFIG_FILE: str = "standard",
     REPORT_DIR: Union[str, None] = None,
     TICK_LABELS: List[str] = ["0", "1e-8", "1e-5", "1e-3", ".03", ".3", "1"],
-    TICKS_WIDTH_RULE: Literal['even', 'log10'] = 'log10',
+    TICKS_WIDTH_RULE: str = 'log10',
 ):
     """
     Loops through the GWAS summary stats file and analyses which data points are missing or invalid.
@@ -219,11 +217,11 @@ def validate_GWASSS_entries(
 
     def check_row(line_cols: List[str]) -> Union[
             # "good" entry
-            Tuple[float, Literal[0], List[bool]],
+            Tuple[float, int, List[bool]],
             # "missing/invalid p-value" entry
-            Tuple[None,  Literal[1], List[bool]],
+            Tuple[None,  int, List[bool]],
             # "invalid" entry, having some issues (listed in the list)
-            Tuple[float, Literal[2], List[bool]],
+            Tuple[float, int, List[bool]],
         ]:
         """
         This function runs for EVERY LINE of the input file,
